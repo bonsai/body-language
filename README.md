@@ -26,7 +26,7 @@
 4. 人による注釈とAIの推定を比較し、不確実性や誤りを記録する。
 5. 再現可能なデータ形式と評価手順を整える。
 
-初期の設計案は [エッセイ構成](docs/essay-outline.md)、[概念モデル](docs/ontology.md)、[JSON Schema](docs/schema.json)、[実験計画](docs/experiments.md) を参照。
+初期の設計案は [エッセイ構成](docs/essay-outline.md)、[概念モデル](docs/ontology.md)、[JSON Schema](docs/schema.json)、[実験計画](docs/experiments.md)、[VTuber表情・仕草・ダンスLoRA研究](docs/vtuber-expression-lora.md) を参照。
 
 ## 原則
 
