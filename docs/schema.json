@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/bonsai/body-language/blob/main/docs/schema.json",
+  "title": "Body Language Observation Record",
+  "description": "A draft schema separating observable movement from contextual interpretation.",
+  "type": "object",
+  "required": ["record_id", "subject", "observation"],
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "description": "Stable identifier for this annotation record."
+    },
+    "subject": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["human", "animal", "group", "unknown"]
+        },
+        "id": {
+          "type": ["string", "null"]
+        },
+        "species_or_community": {
+          "type": ["string", "null"],
+          "description": "Use only when known and relevant; avoid unsupported assumptions."
+        }
+      },
+      "additionalProperties": false
+    },
+    "modality": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["body_motion", "pose", "gesture", "sign_language", "audio", "gaze", "context"]
+      },
+      "uniqueItems": true
+    },
+    "observation": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Describe observable evidence without asserting intent."
+        },
+        "trajectory": {
+          "type": ["string", "null"]
+        },
+        "repetition_count": {
+          "type": ["integer", "null"],
+          "minimum": 0
+        },
+        "time_range_seconds": {
+          "type": ["array", "null"],
+          "prefixItems": [
+            {"type": "number", "minimum": 0},
+            {"type": "number", "minimum": 0}
+          ],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "detection_confidence": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "context": {
+      "type": ["object", "null"],
+      "properties": {
+        "activity": {"type": ["string", "null"]},
+        "setting": {"type": ["string", "null"]},
+        "target": {"type": ["string", "null"]},
+        "culture_or_language": {"type": ["string", "null"]},
+        "audio_description": {"type": ["string", "null"]},
+        "response_observed": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "interpretations": {
+      "type": "array",
+      "description": "One or more hypotheses; do not collapse ambiguity without evidence.",
+      "items": {
+        "type": "object",
+        "required": ["hypothesis"],
+        "properties": {
+          "hypothesis": {"type": "string"},
+          "evidence": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "confidence": {
+            "type": ["number", "null"],
+            "minimum": 0,
+            "maximum": 1
+          },
+          "status": {
+            "type": "string",
+            "enum": ["unverified", "supported", "rejected", "unclear"]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "provenance": {
+      "type": ["object", "null"],
+      "properties": {
+        "source_id": {"type": ["string", "null"]},
+        "annotator": {"type": ["string", "null"]},
+        "license": {"type": ["string", "null"]},
+        "notes": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
